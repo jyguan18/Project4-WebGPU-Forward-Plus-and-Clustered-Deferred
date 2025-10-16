@@ -104,7 +104,7 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
     for (var i:u32 = 0u; i < lightSet.numLights; i = i + 1u){
         let light = lightSet.lights[i];
 
-        if (testSphereAABB(light.pos, ${lightRadius}, minPointAABB, maxPointAABB)){
+        if (testSphereAABB(light.pos, 2.0f, minPointAABB, maxPointAABB)){
             clusterSet.clusters[tile_index].lightIndices[count] = i;
             count = count + 1u;
 
