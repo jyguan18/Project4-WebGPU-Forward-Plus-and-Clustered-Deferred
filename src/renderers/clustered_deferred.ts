@@ -12,8 +12,6 @@ export class ClusteredDeferredRenderer extends renderer.Renderer {
   depthTexture: GPUTexture;
   depthTextureView: GPUTextureView;
 
-  pipeline: GPURenderPipeline;
-
   gBufferBindGroupLayout: GPUBindGroupLayout;
   gBufferBindGroup: GPUBindGroup;
 
