@@ -114,7 +114,7 @@ export class Lights {
     this.clusterY = 9;
     this.clusterZ = 24;
 
-    const bytesPerCluster = 320;
+    const bytesPerCluster = 4 * maxLightsPerCluster + 36;
     const clusterCount = this.clusterX * this.clusterY * this.clusterZ;
     const bufferSize = clusterCount * bytesPerCluster; // 8 floats, 4 bytes per float? idk
 
