@@ -9,7 +9,7 @@ struct LightSet {
     lights: array<Light>
 }
 
-const MAX_LIGHTS_PER_CLUSTER: u32 = 64u;
+const MAX_LIGHTS_PER_CLUSTER: u32 = 512u;
 // TODO-2: you may want to create a ClusterSet struct similar to LightSet
 struct Cluster{
     minPoint: vec4f,

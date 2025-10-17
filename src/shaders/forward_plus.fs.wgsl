@@ -6,6 +6,7 @@
 
 @group(${bindGroup_scene}) @binding(2) var<storage, read_write> clusterSet: ClusterSet;
 @group(${bindGroup_scene}) @binding(0) var<uniform> camera: CameraUniforms;
+
 // See naive.fs.wgsl for basic fragment shader setup; this shader should use light clusters instead of looping over all lights
 struct FragmentInput
 {
@@ -35,11 +36,13 @@ fn main(
 
     // x, y => ss to cluster indices
     let clusterX = u32(fragCoord.x / (camera.screenSize.x / f32(clusterDim.x)));
+    //let clusterY = u32(fragCoord.y / (camera.screenSize.y / f32(clusterDim.y)));
     let clusterY = u32(fragCoord.y / (camera.screenSize.y / f32(clusterDim.y)));
 
     // z => depth in view space to cluster indices
     let depthView = -fragPosView.z; // view space looks down = negative
     let zNear = camera.near;
+
     let zFar = camera.far;
 
     let clusterZ = u32(log(depthView / zNear) / log(zFar / zNear) * f32(clusterDim.z));
@@ -49,7 +52,7 @@ fn main(
     let clusterIdxZ = clamp(clusterZ, 0u, clusterDim.z - 1u);
 
     let clusterIdx = clusterIdxZ * (clusterDim.x * clusterDim.y) +
-        clusterIdxY * (clusterDim.x) + clusterIdxX;
+            clusterIdxY * (clusterDim.x) + clusterIdxX;
 
     // -----------------------------------------------------
     // Retrieve the number of lights that affect the current fragment from the cluster’s data.
@@ -79,4 +82,5 @@ fn main(
     // -----------------------------------------------------
     var finalColor = diffuseColor.rgb * totalLightContrib;
     return vec4f(finalColor, 1.0);
+        
 }

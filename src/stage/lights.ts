@@ -108,15 +108,22 @@ export class Lights {
 
     // TODO-2: initialize layouts, pipelines, textures, etc. needed for light clustering here
 
-    const maxLightsPerCluster = 64;
+    const maxLightsPerCluster = 512;
+    const minPointSize = 16;
+    const maxPointSize = 16;
+    const numLightsSize = 4;
 
     this.clusterX = 16;
     this.clusterY = 9;
     this.clusterZ = 24;
 
-    const bytesPerCluster = 4 * maxLightsPerCluster + 36;
+    const padding = 12;
+    const lightIndicesSize = maxLightsPerCluster * 4;
+
+    const bytesPerCluster =
+      minPointSize + maxPointSize + numLightsSize + padding + lightIndicesSize;
     const clusterCount = this.clusterX * this.clusterY * this.clusterZ;
-    const bufferSize = clusterCount * bytesPerCluster; // 8 floats, 4 bytes per float? idk
+    const bufferSize = clusterCount * bytesPerCluster;
 
     this.clusterStorageBuffer = device.createBuffer({
       label: "cluster storage",

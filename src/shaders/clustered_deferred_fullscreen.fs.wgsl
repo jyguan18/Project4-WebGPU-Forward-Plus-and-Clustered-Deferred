@@ -77,5 +77,6 @@ fn main(
     // Return the final color, ensuring that the alpha component is set appropriately (typically to 1).
     // -----------------------------------------------------
     var finalColor = albedo.rgb * totalLightContrib;
+
     return vec4f(finalColor, 1.0);
 }

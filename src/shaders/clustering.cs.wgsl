@@ -46,7 +46,6 @@ fn testSphereAABB(lightPos: vec3f, lightRadius: f32, aabbMin: vec3f, aabbMax: ve
     let center = (camera.viewMat * vec4f(lightPos, 1.0)).xyz;
 
     let squaredDistance = sqDistPointAABB(center, aabbMin, aabbMax);
-    
     return squaredDistance <= (lightRadius * lightRadius);
 }
 
